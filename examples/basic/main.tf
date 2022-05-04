@@ -65,7 +65,7 @@ module "ecs" {
 }
 
 module "ecs_services" {
-  source  = "terraform-module/blueprint"
+  source  = "terraform-module/ecs-services/aws"
   version = "~> 1"
 
   services = local.services

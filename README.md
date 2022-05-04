@@ -1,36 +1,32 @@
-# Module Blueprint
+# ECS Services Module
 
-Terraform module blueprint
-
----
-
-![](https://github.com/terraform-module/terraform-module-blueprint/workflows/release/badge.svg)
-![](https://github.com/terraform-module/terraform-module-blueprint/workflows/commit-check/badge.svg)
-![](https://github.com/terraform-module/terraform-module-blueprint/workflows/labeler/badge.svg)
-
-[![](https://img.shields.io/github/license/terraform-module/terraform-module-blueprint)](https://github.com/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/v/tag/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/issues/github/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/issues/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/issues-closed/terraform-module/terraform-module-blueprint)
-[![](https://img.shields.io/github/languages/code-size/terraform-module/terraform-module-blueprint)](https://github.com/terraform-module/terraform-module-blueprint)
-[![](https://img.shields.io/github/repo-size/terraform-module/terraform-module-blueprint)](https://github.com/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/languages/top/terraform-module/terraform-module-blueprint?color=green&logo=terraform&logoColor=blue)
-![](https://img.shields.io/github/commit-activity/m/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/contributors/terraform-module/terraform-module-blueprint)
-![](https://img.shields.io/github/last-commit/terraform-module/terraform-module-blueprint)
-[![Maintenance](https://img.shields.io/badge/Maintenu%3F-oui-green.svg)](https://GitHub.com/terraform-module/terraform-module-blueprint/graphs/commit-activity)
-[![GitHub forks](https://img.shields.io/github/forks/terraform-module/terraform-module-blueprint.svg?style=social&label=Fork)](https://github.com/terraform-module/terraform-module-blueprint)
+Terraform module
 
 ---
 
-## Documentation
+![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/release/badge.svg)
+![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/commit-check/badge.svg)
+![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/labeler/badge.svg)
 
-- [TFLint Rules](https://github.com/terraform-linters/tflint/tree/master/docs/rules)
+[![](https://img.shields.io/github/license/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/v/tag/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/issues/github/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/issues/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/issues-closed/terraform-module/terraform-aws-ecs-services)
+[![](https://img.shields.io/github/languages/code-size/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
+[![](https://img.shields.io/github/repo-size/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/languages/top/terraform-module/terraform-aws-ecs-services?color=green&logo=terraform&logoColor=blue)
+![](https://img.shields.io/github/commit-activity/m/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/contributors/terraform-module/terraform-aws-ecs-services)
+![](https://img.shields.io/github/last-commit/terraform-module/terraform-aws-ecs-services)
+[![Maintenance](https://img.shields.io/badge/Maintenu%3F-oui-green.svg)](https://GitHub.com/terraform-module/terraform-aws-ecs-services/graphs/commit-activity)
+[![GitHub forks](https://img.shields.io/github/forks/terraform-module/terraform-aws-ecs-services.svg?style=social&label=Fork)](https://github.com/terraform-module/terraform-aws-ecs-services)
+
+---
 
 ## Usage example
 
-IMPORTANT: The master branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. ?ref=tags/x.y.z) of one of our [latest releases](https://github.com/terraform-module/terraform-module-blueprint/releases).
+IMPORTANT: The master branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. ?ref=tags/x.y.z) of one of our [latest releases](https://github.com/terraform-module/terraform-aws-ecs-services/releases).
 
 See `examples` directory for working examples to reference:
 
@@ -44,6 +40,11 @@ module "blueprint" {
 ## Assumptions
 
 ## Available features
+
+- Create ECS tasks
+- Create ECS services
+- Memory based autoscaling
+- CPU based autoscaling
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -97,7 +98,7 @@ Submit a pull request
 
 # Authors
 
-Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) and these [awesome contributors](https://github.com/terraform-module/terraform-module-blueprint/graphs/contributors).
+Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) and these [awesome contributors](https://github.com/terraform-module/terraform-aws-ecs-services/graphs/contributors).
 
 [![ForTheBadge uses-git](http://ForTheBadge.com/images/badges/uses-git.svg)](https://GitHub.com/)
 
@@ -107,11 +108,7 @@ Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) a
 
 ## Resources
 
+- [TFLint Rules](https://github.com/terraform-linters/tflint/tree/master/docs/rules)
 - [Terraform modules](https://registry.terraform.io/namespaces/terraform-module)
-
-## Clone Me
-
-[**Create a repository using this template →**][template.generate]
-
-<!-- resources -->
-[template.generate]: https://github.com/terraform-module/terraform-module-blueprint/generate
+- [Blog: ECS with Fargate and Terraform](https://engineering.finleap.com/posts/2020-02-20-ecs-fargate-terraform/)
+- [Tfm: example](https://github.com/finleap/tf-ecs-fargate-tmpl)

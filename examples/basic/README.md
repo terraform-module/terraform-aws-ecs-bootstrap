@@ -9,17 +9,23 @@ No requirements.
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecrs"></a> [ecrs](#module\_ecrs) | terraform-module/ecrs/aws | ~> 1.0 |
+| <a name="module_ecs"></a> [ecs](#module\_ecs) | terraform-aws-modules/ecs/aws | ~> 3 |
+| <a name="module_ecs_services"></a> [ecs\_services](#module\_ecs\_services) | terraform-module/ecs-services/aws | ~> 1 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_iam_policy.access_permissions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.ecs_task_policy_attachment_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 
 ## Inputs
 
@@ -29,6 +35,5 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_ecr_repositores"></a> [ecr\_repositores](#output\_ecr\_repositores) | Provides an Elastic Container Registry Repository. |
-| <a name="output_ecr_repository_url"></a> [ecr\_repository\_url](#output\_ecr\_repository\_url) | The URL of the repository (in the form aws\_account\_id.dkr.ecr.region.amazonaws.com/repositoryName) |
+| <a name="output_ecs_task_execution_role_arns"></a> [ecs\_task\_execution\_role\_arns](#output\_ecs\_task\_execution\_role\_arns) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

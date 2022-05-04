@@ -8,18 +8,18 @@ locals {
 
   services = {
     api = {
-      create         = true
-      description    = "API service"
-      tags           = { Name    = "api-task-dev", Service = "api" }
+      create      = true
+      description = "API service"
+      tags        = { Name = "api-task-dev", Service = "api" }
       # task_definition
-      network_mode   = "awsvpc"
+      network_mode    = "awsvpc"
       compatibilities = ["FARGATE"]
-      cpu            = 256
-      memory         = 512
+      cpu             = 256
+      memory          = 512
       container_definitions = [{
-        name        = "api"
-        image       = "cloudkats/hello-world-rest:latest"
-        essential   = true
+        name      = "api"
+        image     = "cloudkats/hello-world-rest:latest"
+        essential = true
         environment = [
           { "name" : "DBPORT", "value" : "5432" },
           { "name" : "PORT", "value" : "3000" },
@@ -30,10 +30,10 @@ locals {
           hostPort      = 3000
         }]
         secrets = [
-          { Name : "DBHOST", ValueFrom: "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/host" },
-          { Name : "DB", ValueFrom: "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/name" },
-          { Name : "DBUSER", ValueFrom: "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/username" },
-          { Name : "DBPASS", ValueFrom: "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/password" },
+          { Name : "DBHOST", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/host" },
+          { Name : "DB", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/name" },
+          { Name : "DBUSER", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/username" },
+          { Name : "DBPASS", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/password" },
         ]
       }]
     }
@@ -111,5 +111,5 @@ resource "aws_iam_role_policy_attachment" "ecs_task_policy_attachment_secrets" {
 
 output "ecs_task_execution_role_arns" {
   description = "AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html"
-  value = { for k, v in module.ecs_services.ecs_task_execution_roles: k => v.arn }
+  value       = { for k, v in module.ecs_services.ecs_task_execution_roles : k => v.arn }
 }

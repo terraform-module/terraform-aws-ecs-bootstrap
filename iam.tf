@@ -46,12 +46,12 @@ resource "aws_iam_role" "ecs_task_role" {
 }
 EOF
 
-  depends_on = [ aws_iam_role.ecs_task_execution_role ]
+  depends_on = [aws_iam_role.ecs_task_execution_role]
 }
 
 # Why: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_attachment" {
-  for_each   = { for k, v in aws_iam_role.ecs_task_execution_role: k => v }
+  for_each   = { for k, v in aws_iam_role.ecs_task_execution_role : k => v }
   role       = each.value.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }

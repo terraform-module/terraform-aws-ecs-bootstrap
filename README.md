@@ -55,7 +55,9 @@ module "ecs-services" {
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
@@ -63,19 +65,27 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_ecs_task_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
+| [aws_iam_role.ecs_task_execution_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.ecs_task_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.ecs_task_execution_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_variable"></a> [variable](#input\_variable) | defaul,description,type | `string` | `"variable"` | no |
+| <a name="input_services"></a> [services](#input\_services) | Map of ECS managed services to create. | `any` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_used"></a> [used](#output\_used) | used value |
+| <a name="output_ecs_task_definitions"></a> [ecs\_task\_definitions](#output\_ecs\_task\_definitions) | A revision of an ECS task definition to be used in aws\_ecs\_service |
+| <a name="output_ecs_task_execution_roles"></a> [ecs\_task\_execution\_roles](#output\_ecs\_task\_execution\_roles) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html |
+| <a name="output_ecs_task_roles"></a> [ecs\_task\_roles](#output\_ecs\_task\_roles) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/userguide/task-iam-roles.html |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 

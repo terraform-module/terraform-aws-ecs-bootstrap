@@ -5,7 +5,7 @@ locals {
     desired_count = 2
 
     deregistration_delay = 30
-    network_mode    = "awsvpc"
-    compatibilities = ["FARGATE"]
+    network_mode         = "awsvpc"
+    compatibilities      = ["FARGATE"]
   }
 }

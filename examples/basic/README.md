@@ -1,4 +1,4 @@
-# Complete AWS ECS Services Setup
+# AWS ECS Services Setup
 
 ## Parameters
 

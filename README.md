@@ -42,7 +42,7 @@ module "ecs-services" {
 See `examples` directory for working examples to reference
 
 - [Complete ECS](https://github.com/terraform-module/terraform-aws-ecs-services/tree/master/examples)
--
+
 ## Assumptions
 
 ## Available features

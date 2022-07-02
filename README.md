@@ -1,38 +1,38 @@
 # ECS Services Module
 
-Terraform ECS services
+Terraform ECS services bootstrap
 
 ---
 
-![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/release/badge.svg)
-![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/commit-check/badge.svg)
-![](https://github.com/terraform-module/terraform-aws-ecs-services/workflows/labeler/badge.svg)
+![](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/workflows/release/badge.svg)
+![](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/workflows/commit-check/badge.svg)
+![](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/workflows/labeler/badge.svg)
 
-[![](https://img.shields.io/github/license/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/v/tag/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/issues/github/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/issues/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/issues-closed/terraform-module/terraform-aws-ecs-services)
-[![](https://img.shields.io/github/languages/code-size/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
-[![](https://img.shields.io/github/repo-size/terraform-module/terraform-aws-ecs-services)](https://github.com/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/languages/top/terraform-module/terraform-aws-ecs-services?color=green&logo=terraform&logoColor=blue)
-![](https://img.shields.io/github/commit-activity/m/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/contributors/terraform-module/terraform-aws-ecs-services)
-![](https://img.shields.io/github/last-commit/terraform-module/terraform-aws-ecs-services)
-[![Maintenance](https://img.shields.io/badge/Maintenu%3F-oui-green.svg)](https://GitHub.com/terraform-module/terraform-aws-ecs-services/graphs/commit-activity)
-[![GitHub forks](https://img.shields.io/github/forks/terraform-module/terraform-aws-ecs-services.svg?style=social&label=Fork)](https://github.com/terraform-module/terraform-aws-ecs-services)
+[![](https://img.shields.io/github/license/terraform-module/terraform-aws-ecs-bootstrap)](https://github.com/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/v/tag/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/issues/github/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/issues/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/issues-closed/terraform-module/terraform-aws-ecs-bootstrap)
+[![](https://img.shields.io/github/languages/code-size/terraform-module/terraform-aws-ecs-bootstrap)](https://github.com/terraform-module/terraform-aws-ecs-bootstrap)
+[![](https://img.shields.io/github/repo-size/terraform-module/terraform-aws-ecs-bootstrap)](https://github.com/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/languages/top/terraform-module/terraform-aws-ecs-bootstrap?color=green&logo=terraform&logoColor=blue)
+![](https://img.shields.io/github/commit-activity/m/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/contributors/terraform-module/terraform-aws-ecs-bootstrap)
+![](https://img.shields.io/github/last-commit/terraform-module/terraform-aws-ecs-bootstrap)
+[![Maintenance](https://img.shields.io/badge/Maintenu%3F-oui-green.svg)](https://GitHub.com/terraform-module/terraform-aws-ecs-bootstrap/graphs/commit-activity)
+[![GitHub forks](https://img.shields.io/github/forks/terraform-module/terraform-aws-ecs-bootstrap.svg?style=social&label=Fork)](https://github.com/terraform-module/terraform-aws-ecs-bootstrap)
 
 ---
 
 ## Usage example
 
-IMPORTANT: The master branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. ?ref=tags/x.y.z) of one of our [latest releases](https://github.com/terraform-module/terraform-aws-ecs-services/releases).
+IMPORTANT: The master branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. ?ref=tags/x.y.z) of one of our [latest releases](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/releases).
 
 See `examples` directory for working examples to reference:
 
 ```hcl
-module "ecs-services" {
-  source  = "terraform-module/ecs-services/aws"
+module "ecs-bootstrap" {
+  source  = "terraform-module/ecs-bootstrap/aws"
   version = "~> 1"
 }
 ```
@@ -41,15 +41,14 @@ module "ecs-services" {
 
 See `examples` directory for working examples to reference
 
-- [Complete ECS](https://github.com/terraform-module/terraform-aws-ecs-services/tree/master/examples)
+- [Complete ECS](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/tree/master/examples)
 
 ## Assumptions
 
 ## Available features
 
-- Create ECS tasks
-- Create ECS services
-- Memory based autoscaling
+- Create/Update ECS tasks
+- Create/Update ECS services
 - CPU based autoscaling
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -114,13 +113,13 @@ Submit a pull request
 
 # Authors
 
-Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) and these [awesome contributors](https://github.com/terraform-module/terraform-aws-ecs-services/graphs/contributors).
+Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) and these [awesome contributors](https://github.com/terraform-module/terraform-aws-ecs-bootstrap/graphs/contributors).
 
 [![ForTheBadge uses-git](http://ForTheBadge.com/images/badges/uses-git.svg)](https://GitHub.com/)
 
 ## Terraform Registry
 
-- [Module](https://registry.terraform.io/modules/terraform-module/ecs-services/aws)
+- [Module](https://registry.terraform.io/modules/terraform-module/ecs-bootstrap/aws)
 
 ## Resources
 
@@ -128,3 +127,9 @@ Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) a
 - [Terraform modules](https://registry.terraform.io/namespaces/terraform-module)
 - [Blog: ECS with Fargate and Terraform](https://engineering.finleap.com/posts/2020-02-20-ecs-fargate-terraform/)
 - [Tfm: example](https://github.com/finleap/tf-ecs-fargate-tmpl)
+
+## TODO
+
+- [ ] Tags per resource
+- [ ] Pass default values
+- [ ] Strongly typed objects

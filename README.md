@@ -1,6 +1,26 @@
 # ECS Services Module
 
-Terraform ECS services bootstrap
+Terraform ECS services bootstrap in an existing ECS Cluster. This terraform setup can be used to setup the AWS infrastructure for a dockerized application running on ECS with Fargate launch configuration.
+
+##### Load Balancing
+This module supports the use of ALBs and NLBs by accepting the ARN of a Load Balancer Listener
+and creating the target group for the service. In order to use Load Balancing, set the `load_balancer_target_groups` variable
+with the list of Target Group ARNs that the ECS Service should register with.
+
+##### Service Discovery
+Service Discovery is supported by creating a Service Discovery Service via this module and allowing the configuration of the
+DNS settings for the service. In order to use Service Discovery, the `enable_service_discovery` input variable must be set
+to `true` and the ID of an existing Service Discovery Namespace must be passed in. There are several service discovery
+input variables that be adjusted to change the behavior Service Discovery.
+
+##### Auto Scaling
+This module supports Auto Scaling via a Target Tracking Policy that can be either set against CPU or Memory utilization. In order
+to use Auto Scaling, the `enable_auto_scaling` input variable must be set to `true`. There are multiple auto scaling input
+variables that be set to adjust the task scaling.
+
+**Note**: In order to tag ECS Service resources, you must have opted in to the new ARN and Resource ID settings for ECS - if not
+the ECS Service will fail to create. If you have not opted in, you can set the `ecs_service_tagging_enabled` input variable
+to `false` - which will not tag the ECS Service.
 
 ---
 
@@ -155,10 +175,20 @@ Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) a
 
 ## Resources
 
+- [AWS: app mesh workshop](https://ecsworkshop.com/networking_sd/app_mesh/)
 - [TFLint Rules](https://github.com/terraform-linters/tflint/tree/master/docs/rules)
 - [Terraform modules](https://registry.terraform.io/namespaces/terraform-module)
 - [Blog: ECS with Fargate and Terraform](https://engineering.finleap.com/posts/2020-02-20-ecs-fargate-terraform/)
 - [Tfm: example](https://github.com/finleap/tf-ecs-fargate-tmpl)
+
+### Example TFM Modules
+
+- [Tfm: autoscaling](https://github.com/terraform-aws-modules/terraform-aws-autoscaling)
+- [Tfm: ecs](https://github.com/terraform-aws-modules/terraform-aws-ecs)
+- [Tfm: ecs service](https://github.com/terra-mod/terraform-aws-ecs-service)
+- [Tfm: alb](https://github.com/HDE/terraform-aws-alb)
+- [Tfm: ecs fargate](https://github.com/stroeer/terraform-aws-ecs-fargate)
+- [Tfm: service discovery](https://ecsworkshop.com/introduction/ecs_basics/servicediscovery/)
 
 ## TODO
 

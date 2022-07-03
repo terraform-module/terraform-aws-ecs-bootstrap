@@ -3,13 +3,11 @@ name: linter
 # This workflow is triggered on pushes to the repository.
 on:
   push:
-
   pull_request:
     branches:
       - main
       - master
   workflow_dispatch:
-
 
 jobs:
   terraform-validate:
@@ -19,6 +17,12 @@ jobs:
       - uses: actions/checkout@master
       # https://github.com/hashicorp/setup-terraform
       - uses: hashicorp/setup-terraform@v2
+
+      - name: Cache terraform folder
+        uses: actions/cache@v2
+        with:
+          path: ./.terraform
+          key: terraform
 
       - name: terraform fmt
         run: terraform fmt -check -recursive -diff

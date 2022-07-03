@@ -7,9 +7,10 @@ locals {
     GithubOrg  = "terraform-module"
   }
 
-  subnets      = data.aws_subnets.private.ids
-  cluster_id   = data.aws_ecs_cluster.this.id
-  cluster_name = var.name
+  private_subnets = data.aws_subnets.private.ids
+  public_subnets  = data.aws_subnets.public.ids
+  cluster_id      = data.aws_ecs_cluster.this.id
+  cluster_name    = var.name
 
   proxy = {
     name             = "proxy"

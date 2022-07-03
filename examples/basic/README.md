@@ -1,5 +1,17 @@
 # AWS ECS Services Setup
 
+## Usage
+
+To run this example you need to execute:
+
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+```
+
+Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
+
 ## Parameters
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -17,23 +29,25 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecs"></a> [ecs](#module\_ecs) | terraform-aws-modules/ecs/aws | ~> 3 |
-| <a name="module_ecs_services"></a> [ecs\_services](#module\_ecs\_services) | terraform-module/ecs-services/aws | ~> 1 |
+| <a name="module_ecs-bootstrap-service"></a> [ecs-bootstrap-service](#module\_ecs-bootstrap-service) | ../.. | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.access_permissions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_role_policy_attachment.ecs_task_policy_attachment_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_ecs_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_cluster) | data source |
+| [aws_subnets.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_listener_arn"></a> [listener\_arn](#input\_listener\_arn) | (Required, Forces New Resource) The ARN of the listener to which to attach the rule. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Project Name | `string` | n/a | yes |
+| <a name="input_service_discovery"></a> [service\_discovery](#input\_service\_discovery) | Provides a Service Discovery Private DNS Namespace resource. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where to deploy platform. | `string` | n/a | yes |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_ecs_task_execution_role_arns"></a> [ecs\_task\_execution\_role\_arns](#output\_ecs\_task\_execution\_role\_arns) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

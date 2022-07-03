@@ -1,0 +1,31 @@
+---
+name: linter
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+
+jobs:
+  terraform-validate:
+    name: code format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      # https://github.com/hashicorp/setup-terraform
+      - uses: hashicorp/setup-terraform@v2
+
+      - name: terraform fmt
+        run: terraform fmt -check -recursive -diff
+        continue-on-error: true
+
+      - name: terraform init
+        run: terraform init
+
+      - name: terraform validate
+        run: terraform validate

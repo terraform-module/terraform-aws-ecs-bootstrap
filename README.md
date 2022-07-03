@@ -63,6 +63,7 @@ See `examples` directory for working examples to reference
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -72,25 +73,56 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_appautoscaling_policy.ecs_cpu_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_target.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
+| [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_ecs_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
 | [aws_ecs_task_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
-| [aws_iam_role.ecs_task_execution_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role.ecs_task_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy_attachment.ecs_task_execution_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role.autoscaling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.task_execution_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.task_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.autoscaling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.task_additional_policies_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy_attachment.task_execution_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_lb_listener_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule) | resource |
+| [aws_lb_target_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource |
+| [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_service_discovery_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) | resource |
+| [random_string.tg](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_services"></a> [services](#input\_services) | Map of ECS managed services to create. | `any` | `{}` | no |
+| <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | ECS Cluster ARN. | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | ECS Cluster name. | `string` | n/a | yes |
+| <a name="input_iam"></a> [iam](#input\_iam) | IAM actions and resource permissions. | `any` | `{}` | no |
+| <a name="input_lb"></a> [lb](#input\_lb) | The Load Balancer configuration for the service. A health block containing health check settings for the ALB target groups. See https://www.terraform.io/docs/providers/aws/r/lb_target_group.html#health_check for defaults. | `any` | `{}` | no |
+| <a name="input_log_configuration"></a> [log\_configuration](#input\_log\_configuration) | The log configuration for the service. | `any` | `{}` | no |
+| <a name="input_name"></a> [name](#input\_name) | Resource names that do not require prefix | `string` | n/a | yes |
+| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | The prefix for resource names | `string` | n/a | yes |
+| <a name="input_scaling"></a> [scaling](#input\_scaling) | Provides an Application AutoScaling resource management. | `any` | `{}` | no |
+| <a name="input_sds"></a> [sds](#input\_sds) | Service Discovery Service resource. | `any` | `{}` | no |
+| <a name="input_service"></a> [service](#input\_service) | Managed service to create. | `any` | `{}` | no |
+| <a name="input_sg"></a> [sg](#input\_sg) | Security group. | `any` | `{}` | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | VPC subnets where service to deploy to. | `list(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to all resources | `map(string)` | `{}` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where to deploy platform. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_ecs_task_definitions"></a> [ecs\_task\_definitions](#output\_ecs\_task\_definitions) | A revision of an ECS task definition to be used in aws\_ecs\_service |
-| <a name="output_ecs_task_execution_roles"></a> [ecs\_task\_execution\_roles](#output\_ecs\_task\_execution\_roles) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html |
-| <a name="output_ecs_task_roles"></a> [ecs\_task\_roles](#output\_ecs\_task\_roles) | AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/userguide/task-iam-roles.html |
+| <a name="output_cloudWatch_log_groups"></a> [cloudWatch\_log\_groups](#output\_cloudWatch\_log\_groups) | CloudWatch log group resources |
+| <a name="output_ecs_lb_target_group"></a> [ecs\_lb\_target\_group](#output\_ecs\_lb\_target\_group) | Provides a Target Group resource for use with Load Balancer resources. |
+| <a name="output_ecs_service"></a> [ecs\_service](#output\_ecs\_service) | Provides an ECS service resource |
+| <a name="output_ecs_task_definition"></a> [ecs\_task\_definition](#output\_ecs\_task\_definition) | A revision of an ECS task definition to be used in aws\_ecs\_service |
+| <a name="output_lb_listener_rules"></a> [lb\_listener\_rules](#output\_lb\_listener\_rules) | Load Balancer Listener Rule resources. |
+| <a name="output_service_discovery"></a> [service\_discovery](#output\_service\_discovery) | Service Discovery. AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html |
+| <a name="output_service_security_group"></a> [service\_security\_group](#output\_service\_security\_group) | ID of the service security group |
+| <a name="output_task_execution_role"></a> [task\_execution\_role](#output\_task\_execution\_role) | Provides an IAM roles. AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html |
+| <a name="output_task_role"></a> [task\_role](#output\_task\_role) | Provides an IAM task roles. AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
@@ -133,3 +165,4 @@ Currently maintained by [Ivan Katliarchuk](https://github.com/ivankatliarchuk) a
 - [ ] Tags per resource
 - [ ] Pass default values
 - [ ] Strongly typed objects
+- [ ] Basic Alerts

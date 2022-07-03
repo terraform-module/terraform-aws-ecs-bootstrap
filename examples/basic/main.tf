@@ -1,115 +1,76 @@
-locals {
-  name = "example-ecs"
-  tags = {
-    Stack      = "ecs-services"
-    GithubRepo = "terraform-aws-ecs"
-    GithubOrg  = "terraform-module"
+module "ecs-bootstrap-service" {
+  source = "../.."
+
+  name        = var.proxy.name
+  name_prefix = format("%s-%s", var.proxy.name, var.env)
+  vpc_id      = var.vpc_id
+  tags        = var.proxy.tags
+  service     = var.proxy
+
+  cluster_id   = var.cluster_id
+  cluster_name = var.cluster_name
+  subnets      = local.subnets
+
+  sds = {
+    create       = var.proxy.create && var.proxy.visibility == "private"
+    namespace_id = var.service_discovery
   }
 
-  services = {
-    api = {
-      create      = true
-      description = "API service"
-      tags        = { Name = "api-task-dev", Service = "api" }
-      # task_definition
-      network_mode    = "awsvpc"
-      compatibilities = ["FARGATE"]
-      cpu             = 256
-      memory          = 512
-      container_definitions = [{
-        name      = "api"
-        image     = "cloudkats/hello-world-rest:latest"
-        essential = true
-        environment = [
-          { "name" : "DBPORT", "value" : "5432" },
-          { "name" : "PORT", "value" : "3000" },
-        ]
-        portMappings = [{
-          protocol      = "tcp"
-          containerPort = 3000
-          hostPort      = 3000
-        }]
-        secrets = [
-          { Name : "DBHOST", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/host" },
-          { Name : "DB", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/name" },
-          { Name : "DBUSER", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/username" },
-          { Name : "DBPASS", ValueFrom : "arn:aws:ssm:eu-west-1:01479bc8:parameter/dev/database/password" },
-        ]
-      }]
+  lb = {
+    create       = var.proxy.create && can(var.proxy["lb_condition_rule"])
+    port         = var.proxy.exposed_port
+    health_check = var.proxy.health_check
+    listener_arn = var.listener_arn
+    priority     = 1
+    lb_rules     = can(var.proxy["lb_condition_rule"]) ? var.proxy.lb_condition_rule : {}
+  }
+
+  scaling = {
+    create          = var.proxy.max_capacity > var.proxy.min_capacity ? true : false
+    create_iam_role = false
+    min_capacity    = var.proxy.min_capacity
+    max_capacity    = var.proxy.max_capacity
+    max_cpu_util    = 60
+
+    scale_in_cooldown  = 60
+    scale_out_cooldown = 60
+  }
+
+  sg = {
+    create = var.proxy.create
+    group_rules = {
+      ingress_exposed = {
+        description = "Ingress Exposed to svc"
+        protocol    = "tcp"
+        from_port   = var.proxy.exposed_port
+        to_port     = var.proxy.exposed_port
+        type        = "ingress"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+      egress_default = {
+        description = "ALLOW ALL egress rule"
+        protocol    = "-1"
+        from_port   = 0
+        to_port     = 0
+        type        = "egress"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
     }
   }
 
-}
+  log_configuration = {
+    log_group_names = { for k, v in var.proxy.container_definitions : k => v.logConfiguration
+    if var.proxy.create && var.proxy.create_log_group && v.logConfiguration.logDriver == "awslogs" }
+    retention_in_days = 1
+  }
 
-
-################################################################################
-# ECS Resource Creation
-################################################################################
-
-module "ecs" {
-  source  = "terraform-aws-modules/ecs/aws"
-  version = "~> 3"
-
-  name = local.name
-
-  container_insights = true
-  capacity_providers = ["FARGATE_SPOT"]
-
-  default_capacity_provider_strategy = [
-    {
-      capacity_provider = "FARGATE_SPOT"
+  iam = {
+    create = var.proxy.create
+    additional_policies = {
+      default = templatefile("${path.module}/iam/ecs-task-default.json", {
+        env        = var.env
+        account_id = local.account_id
+      })
     }
-  ]
-
-  tags = local.tags
-}
-
-module "ecs_services" {
-  source  = "terraform-module/ecs-services/aws"
-  version = "~> 1"
-
-  services = local.services
-  tags     = local.tags
-}
-
-################################################################################
-# IAM Resource Creation
-################################################################################
-
-resource "aws_iam_policy" "access_permissions" {
-  for_each    = { for k, v in local.services : k => v if v.create }
-  name        = "${each.key}-task-permissions"
-  description = "Should allow access to the ssm parameters"
-  tags        = merge(local.tags, try(each.value.tags, null))
-
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AccessSecrets",
-            "Effect": "Allow",
-            "Action": [
-              "ssm:GetParameters"
-            ],
-            "Resource": ["*"]
-        }
-    ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_task_policy_attachment_secrets" {
-  for_each   = { for k, v in local.services : k => v if v.create }
-  role       = module.ecs_services.ecs_task_execution_roles[each.key].name
-  policy_arn = aws_iam_policy.access_permissions[each.key].arn
-}
-
-################################################################################
-# OUTPUTS
-################################################################################
-
-output "ecs_task_execution_role_arns" {
-  description = "AWS Docs https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html"
-  value       = { for k, v in module.ecs_services.ecs_task_execution_roles : k => v.arn }
+  }
 }

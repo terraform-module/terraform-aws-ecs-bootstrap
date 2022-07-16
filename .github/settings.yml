@@ -4,7 +4,7 @@ _extends: .github
 repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
   name: terraform-aws-ecs-bootstrap
-  description: "ℹ️ Terraform AWS ECS services bootstrap model."
+  description: "ℹ️ Terraform AWS ECS services bootstrap module."
   homepage: https://ivankatliarchuk.github.io
   topics: ivank, terraform, terraform-module, ecs
   private: false

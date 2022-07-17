@@ -59,8 +59,6 @@ module "ecs-bootstrap-service" {
   }
 
   log_configuration = {
-    log_group_names = { for k, v in var.proxy.container_definitions : k => v.logConfiguration
-    if var.proxy.create && var.proxy.create_log_group && v.logConfiguration.logDriver == "awslogs" }
     retention_in_days = 1
   }
 

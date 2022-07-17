@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "this" {
-  count = try(var.service.create, false) ? 1 : 0
+  count = var.create && try(var.service.create, false) ? 1 : 0
 
   family                   = try(var.service.family, format("%s-task", var.name_prefix))
   network_mode             = try(var.service.network_mode, local.defaults.network_mode)
@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "this" {
 }
 
 resource "aws_ecs_service" "this" {
-  count = try(var.service.create, false) ? 1 : 0
+  count = var.create && try(var.service.create, false) ? 1 : 0
 
   name                               = local.service_name
   cluster                            = local.cluster_id

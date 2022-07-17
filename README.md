@@ -177,6 +177,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | ECS Cluster ARN. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | ECS Cluster name. | `string` | n/a | yes |
+| <a name="input_create"></a> [create](#input\_create) | Controls if resources should be created (affects nearly all resources) | `bool` | `true` | no |
 | <a name="input_iam"></a> [iam](#input\_iam) | IAM actions and resource permissions. | `any` | `{}` | no |
 | <a name="input_lb"></a> [lb](#input\_lb) | The Load Balancer configuration for the service. A health block containing health check settings for the ALB target groups. See https://www.terraform.io/docs/providers/aws/r/lb_target_group.html#health_check for defaults. | `any` | `{}` | no |
 | <a name="input_log_configuration"></a> [log\_configuration](#input\_log\_configuration) | The log configuration for the service. | `any` | `{}` | no |

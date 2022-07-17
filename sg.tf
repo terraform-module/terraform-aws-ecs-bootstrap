@@ -1,5 +1,5 @@
 resource "aws_security_group" "this" {
-  count = try(var.sg.create, false) ? 1 : 0
+  count = var.create && try(var.sg.create, false) ? 1 : 0
 
   name        = format("%s-sg-task", var.name_prefix)
   vpc_id      = var.vpc_id
@@ -11,7 +11,7 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_security_group_rule" "cluster" {
-  for_each = { for k, v in var.sg.group_rules : k => v if var.sg.create }
+  for_each = { for k, v in var.sg.group_rules : k => v if var.create && var.sg.create }
 
   # Required
   security_group_id = aws_security_group.this[0].id

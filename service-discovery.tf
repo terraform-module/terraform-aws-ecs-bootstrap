@@ -1,5 +1,5 @@
 resource "aws_service_discovery_service" "this" {
-  count = try(var.sds.create, false) ? 1 : 0
+  count = var.create && try(var.sds.create, false) ? 1 : 0
 
   name        = var.name
   description = format("Service Discovery Service for --%s--.", var.name)

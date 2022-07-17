@@ -1,5 +1,5 @@
 resource "aws_appautoscaling_target" "this" {
-  count = try(var.scaling.create, false) ? 1 : 0
+  count = var.create && try(var.scaling.create, false) ? 1 : 0
 
   resource_id        = format("service/%s/%s", local.cluster_name, local.service_name)
   min_capacity       = var.scaling.min_capacity
@@ -12,7 +12,7 @@ resource "aws_appautoscaling_target" "this" {
 }
 
 resource "aws_appautoscaling_policy" "ecs_cpu_policy" {
-  count = try(var.scaling.create, false) ? 1 : 0
+  count = var.create && try(var.scaling.create, false) ? 1 : 0
 
   name               = format("%s-%s-cpu-autoscaling", local.cluster_name, local.service_name)
   policy_type        = "TargetTrackingScaling"

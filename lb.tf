@@ -9,7 +9,7 @@ resource "random_string" "tg" {
 }
 
 resource "aws_lb_target_group" "this" {
-  count = try(var.lb.create, false) ? 1 : 0
+  count = var.create && try(var.lb.create, false) ? 1 : 0
   # "name" cannot be longer than 32 characters
   name        = substr(format("%s-%s-tg-ecs", var.name_prefix, random_string.tg.id), 0, 32)
   port        = var.lb.port
@@ -46,7 +46,7 @@ resource "aws_lb_target_group" "this" {
 }
 
 resource "aws_lb_listener_rule" "this" {
-  count = try(var.lb.create, false) ? 1 : 0
+  count = var.create && try(var.lb.create, false) ? 1 : 0
 
   listener_arn = var.lb.listener_arn
   priority     = var.lb.priority

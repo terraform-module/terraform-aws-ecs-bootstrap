@@ -54,7 +54,47 @@ See `examples` directory for working examples to reference:
 module "ecs-bootstrap" {
   source  = "terraform-module/ecs-bootstrap/aws"
   version = "~> 1"
-  # insert the 6 required variables here
+
+  name        = var.proxy.name
+  name_prefix = format("%s-%s", var.proxy.name, var.env)
+  vpc_id      = local.vpc_id
+  create      = local.proxy.create
+  tags        = local.proxy.tags
+  service     = local.proxy
+
+  cluster_id   = local.cluster_id
+  cluster_name = local.cluster_name
+  subnets      = local.private_subnets
+
+  lb = {
+    create       = local.proxy.create && can(var.proxy["lb_condition_rule"])
+    port         = local.proxy.exposed_port
+    health_check = local.proxy.health_check
+    listener_arn = data.aws_lb_listener._443.arn
+    priority     = 1
+    lb_rules     = can(local.proxy["lb_condition_rule"]) ? var.proxy.lb_condition_rule : {}
+  }
+
+  scaling = {
+    create          = local.proxy.max_capacity > local.proxy.min_capacity ? true : false
+    create_iam_role = false
+    min_capacity    = local.proxy.min_capacity
+    max_capacity    = local.proxy.max_capacity
+    max_cpu_util    = 60
+
+    scale_in_cooldown  = 60
+    scale_out_cooldown = 60
+  }
+
+}
+
+data "aws_lb" "this" {
+  name = "${var.name}-alb"
+}
+
+data "aws_lb_listener" "_443" {
+  load_balancer_arn = data.aws_lb.this.arn
+  port              = 443
 }
 
 locals {
